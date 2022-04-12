@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/16"
+      fx:controller="io.github.maciejlagowski.jarmodifier.controller.AddClassController">
+    <TitledPane collapsible="false" text="Class name">
+        <TextField fx:id="className"/>
+    </TitledPane>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button onAction="#onExitClick" text="Cancel"/>
+        <Button onAction="#onAddClassButtonClick" text="Add Class"/>
+    </HBox>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+</VBox>

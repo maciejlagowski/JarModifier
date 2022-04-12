@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1024.0"
+            xmlns="http://javafx.com/javafx/16"
+            fx:controller="io.github.maciejlagowski.jarmodifier.controller.ApplicationController">
+    <top>
+        <VBox>
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem onAction="#onOpenFileClick" text="Open"/>
+                    <MenuItem onAction="#onSaveFileClick" text="Save As" disable="true" fx:id="saveFileMenuItem"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem onAction="#onExitClick" text="Exit"/>
+                </Menu>
+                <Menu text="Operations">
+                    <MenuItem fx:id="decompileBarMenuItem" disable="true" onAction="#onDecompileButtonClick"
+                              text="Decompile"/>
+                    <MenuItem fx:id="removeTreeBarMenuItem" disable="true" onAction="#onRemoveTreeClick"
+                              text="Remove class"/>
+                    <MenuItem fx:id="addClassBarMenuItem" disable="true" onAction="#onAddClassClick" text="Add class"/>
+                    <MenuItem fx:id="addMethodBarMenuItem" disable="true" onAction="#onAddMethodClick"
+                              text="Add method"/>
+                    <MenuItem fx:id="editMethodBarMenuItem" disable="true" onAction="#onEditMethodClick"
+                              text="Edit method"/>
+                    <MenuItem fx:id="removeMemberBarMenuItem" disable="true" onAction="#onRemoveMemberClick"
+                              text="Remove member"/>
+                    <MenuItem fx:id="addFieldBarMenuItem" disable="true" onAction="#onAddFieldClick" text="Add field"/>
+                </Menu>
+                <Menu text="Help">
+                    <MenuItem text="Manual"/>
+                    <MenuItem text="About" onAction="#onAboutClick"/>
+                </Menu>
+            </MenuBar>
+            <ToolBar>
+                <Button fx:id="decompileBtn" disable="true" onAction="#onDecompileButtonClick" text="Decompile"/>
+                <Button fx:id="removeTreeBtn" disable="true" onAction="#onRemoveTreeClick" text="Remove class"/>
+                <Button fx:id="addClassBtn" disable="true" onAction="#onAddClassClick" text="Add class"/>
+                <Button fx:id="addMethodBtn" disable="true" onAction="#onAddMethodClick" text="Add method"/>
+                <Button fx:id="editMethodBtn" disable="true" onAction="#onEditMethodClick" text="Edit method"/>
+                <Button fx:id="removeMemberBtn" disable="true" onAction="#onRemoveMemberClick" text="Remove member"/>
+                <Button fx:id="addFieldBtn" disable="true" onAction="#onAddFieldClick" text="Add field"/>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <left>
+        <TreeView fx:id="treeView" onMouseClicked="#onTreeItemMouseClick">
+            <contextMenu>
+                <ContextMenu fx:id="contextTree">
+                    <items>
+                        <MenuItem fx:id="addClassMenuItem" text="Add class" disable="true" onAction="#onAddClassClick"/>
+                        <MenuItem fx:id="removeTreeMenuItem" text="Remove" disable="true"
+                                  onAction="#onRemoveTreeClick"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TreeView>
+    </left>
+
+    <center>
+        <HBox>
+            <VBox>
+                <ListView fx:id="listView" onMouseClicked="#onListViewMouseClick" prefHeight="900">
+                    <contextMenu>
+                        <ContextMenu fx:id="contextList">
+                            <items>
+                                <MenuItem fx:id="addMethodMenuItem" text="Add method" disable="true"
+                                          onAction="#onAddMethodClick"/>
+                                <MenuItem fx:id="addFieldMenuItem" text="Add field" disable="true"
+                                          onAction="#onAddFieldClick"/>
+                                <MenuItem fx:id="editMethodMenuItem" text="Edit method" disable="true"
+                                          onAction="#onEditMethodClick"/>
+                                <MenuItem fx:id="removeMemberMenuItem" text="Remove" disable="true"
+                                          onAction="#onRemoveMemberClick"/>
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
+                </ListView>
+                <TextArea fx:id="propertiesArea" editable="false" prefHeight="600" wrapText="true"/>
+            </VBox>
+            <TextArea fx:id="fileContentArea" editable="false" wrapText="true"/>
+        </HBox>
+    </center>
+
+    <bottom>
+        <Label text=" "/>
+    </bottom>
+</BorderPane>

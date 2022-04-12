@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/16"
+      fx:controller="io.github.maciejlagowski.jarmodifier.controller.EditMethodController">
+    <TitledPane collapsible="false" text="Edition type">
+        <VBox spacing="10">
+            <RadioButton fx:id="before" selected="true" text="Add code before the method body">
+                <toggleGroup>
+                    <ToggleGroup fx:id="group"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="after" text="Add code after the method body" toggleGroup="$group"/>
+            <RadioButton fx:id="override" text="Override the method body code" toggleGroup="$group"/>
+        </VBox>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Code to add">
+        <TextArea fx:id="methodBody"/>
+    </TitledPane>
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button onAction="#onExitClick" text="Cancel"/>
+        <Button onAction="#onEditButtonClick" text="Edit Method"/>
+    </HBox>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+</VBox>

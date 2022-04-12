@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.maciejlagowski.jarmodifier.enums.EModifier?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/16"
+      fx:controller="io.github.maciejlagowski.jarmodifier.controller.AddFieldController">
+    <TitledPane collapsible="false" text="Select modifiers">
+        <HBox spacing="10">
+            <ChoiceBox fx:id="modifiers" prefWidth="250.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <EModifier fx:value="PUBLIC"/>
+                        <EModifier fx:value="PROTECTED"/>
+                        <EModifier fx:value="PRIVATE"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+            <CheckBox fx:id="staticModifier" text="static"/>
+        </HBox>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Field type">
+        <TextField fx:id="fieldType"/>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Field name">
+        <TextField fx:id="fieldName"/>
+    </TitledPane>
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button onAction="#onExitClick" text="Cancel"/>
+        <Button onAction="#onAddFieldButtonClick" text="Add Field"/>
+    </HBox>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+</VBox>

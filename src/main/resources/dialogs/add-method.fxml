@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.maciejlagowski.jarmodifier.enums.EModifier?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefWidth="400.0" spacing="10.0" xmlns="http://javafx.com/javafx/16"
+      fx:controller="io.github.maciejlagowski.jarmodifier.controller.AddMethodController">
+    <TitledPane collapsible="false" text="Select modifiers">
+        <HBox spacing="10">
+            <ChoiceBox fx:id="modifiers" prefWidth="250.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <EModifier fx:value="PUBLIC"/>
+                        <EModifier fx:value="PROTECTED"/>
+                        <EModifier fx:value="PRIVATE"/>
+                    </FXCollections>
+                </items>
+            </ChoiceBox>
+            <CheckBox fx:id="staticModifier" text="static"/>
+        </HBox>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Return type">
+        <TextField fx:id="returnType"/>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Method name">
+        <TextField fx:id="methodName"/>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Parameters">
+        <VBox spacing="10">
+            <HBox spacing="10">
+                <Button onAction="#onAddParameterButtonClick" text="+"/>
+                <Button onAction="#onRemoveParameterButtonClick" text="—"/>
+            </HBox>
+            <VBox fx:id="parametersVbox" spacing="5"/>
+        </VBox>
+    </TitledPane>
+    <TitledPane collapsible="false" text="Body">
+        <TextArea fx:id="methodBody"/>
+    </TitledPane>
+    <HBox alignment="CENTER_RIGHT" spacing="10">
+        <Button onAction="#onExitClick" text="Cancel"/>
+        <Button onAction="#onAddMethodButtonClick" text="Add Method"/>
+    </HBox>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+</VBox>
