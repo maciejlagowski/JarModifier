@@ -4,8 +4,8 @@ module io.github.maciejlagowski.jarmodifier {
     requires javassist;
     requires lombok;
     requires org.apache.commons.lang3;
-    requires java.decompiler;
     requires org.controlsfx.controls;
+    requires intellij.fernflower;
 
     opens io.github.maciejlagowski.jarmodifier to javafx.fxml;
     exports io.github.maciejlagowski.jarmodifier;

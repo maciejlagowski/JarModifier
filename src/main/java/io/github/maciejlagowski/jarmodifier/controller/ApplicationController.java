@@ -126,7 +126,7 @@ public class ApplicationController extends Controller {
             File jar = jarService.chooseFile(stage);
             JarTreeItem jarTree = jarService.buildJarTree(new JarFile(jar));
             treeView.setRoot(jarTree);
-            stage.setTitle(jar.getName() + " - Reflection App");
+            stage.setTitle(jar.getName() + " - JarModifier");
             showButtons(EType.JAR);
         } catch (Exception e) {
             viewManager.showError(e);

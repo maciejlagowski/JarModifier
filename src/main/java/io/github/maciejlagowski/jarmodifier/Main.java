@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         ViewManager viewManager = ViewManager.getInstance();
         viewManager.loadFXMLs();
-        stage.setTitle("Reflection App");
+        stage.setTitle("JarModifier");
         try {
             Parent root = viewManager.getRoot();
             stage.setScene(new Scene(root));
