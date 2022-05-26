@@ -2,12 +2,18 @@ package io.github.maciejlagowski.jarmodifier;
 
 import io.github.maciejlagowski.jarmodifier.controller.ApplicationController;
 import io.github.maciejlagowski.jarmodifier.enums.EView;
+import io.github.maciejlagowski.jarmodifier.service.ClassService;
+import io.github.maciejlagowski.jarmodifier.service.MemberService;
 import io.github.maciejlagowski.jarmodifier.service.decompiler.DecompilerService;
+import io.github.maciejlagowski.jarmodifier.util.ClassMember;
 import io.github.maciejlagowski.jarmodifier.view.ViewManager;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javassist.CannotCompileException;
+import javassist.CtClass;
+import javassist.CtField;
 
 public class Main extends Application {
 
@@ -42,6 +48,7 @@ public class Main extends Application {
 // showing changes to classes
 
 // NICE TO HAVE
+// https://github.com/FXMisc/RichTextFX syntax highlighting
 // more use of controlsfx to get better looking app
 // adding and removing packages
 // operations on constructors

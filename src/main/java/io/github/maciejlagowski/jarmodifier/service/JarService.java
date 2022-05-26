@@ -90,7 +90,10 @@ public class JarService {
         fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
-            new JarWriter().saveJar(file, jar, changedClasses, new ArrayList<>(), classesToRemove);
+            if (!file.getAbsolutePath().contains(".jar")) {
+                file = new File(file.getAbsolutePath() + ".jar");
+            }
+            new JarWriter().saveJar(file, new JarFile(jar), changedClasses, classesToRemove);
         }
         return file;
     }

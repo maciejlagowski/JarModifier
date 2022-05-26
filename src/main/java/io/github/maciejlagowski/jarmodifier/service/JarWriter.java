@@ -13,42 +13,27 @@ import java.util.jar.JarOutputStream;
 
 class JarWriter {
 
-    public void saveJar(File pathToSave, File pathToJar, List<CtClass> changedClasses, List<String> addedPackages, List<CtClass> classesToRemove) throws Exception {
-        if (!pathToSave.getAbsolutePath().contains(".jar")) {
-            pathToSave = new File(pathToSave.getAbsolutePath() + ".jar");
-        }
-        JarFile jarFile = new JarFile(pathToJar);
-        final JarOutputStream jos = new JarOutputStream(new FileOutputStream(pathToSave));
-        Enumeration<JarEntry> jarEntries = jarFile.entries();
-        while (jarEntries.hasMoreElements()) {
-            JarEntry entry = jarEntries.nextElement();
-            boolean entryIsNotChanged = true;
-            for (int i = 0; i < classesToRemove.size(); i++) {
-                CtClass removeClass = classesToRemove.get(i);
-                if (entry.getName().equals(removeClass.getName().replace('.', '/') + ".class")) {
-                    changedClasses.remove(removeClass);
-                    classesToRemove.remove(removeClass);
-                    i--;
-                    entryIsNotChanged = false;
-                }
-            }
-            if (entryIsNotChanged) {
-                for (int i = 0; i < changedClasses.size(); i++) {
-                    CtClass changedClass = changedClasses.get(i);
-                    if (entry.getName().equals(changedClass.getName().replace('.', '/') + ".class")) {
-                        jos.putNextEntry(new JarEntry(entry.getName()));
-                        changedClass.writeFile();
-                        InputStream is = new FileInputStream(entry.getName());
-                        write(jos, is);
-                        entryIsNotChanged = false;
-                        changedClasses.remove(changedClass);
-                        i--;
-                    }
-                }
-            }
-            if (entryIsNotChanged) {
+    public void saveJar(File pathToSave, JarFile originalJar, List<CtClass> changedClasses, List<CtClass> classesToRemove) throws Exception {
+        JarOutputStream jos = new JarOutputStream(new FileOutputStream(pathToSave));
+        Enumeration<JarEntry> originalEntries = originalJar.entries();
+
+        while(originalEntries.hasMoreElements()) {
+            JarEntry entry = originalEntries.nextElement();
+            CtClass classToRemove = findClassInList(entry, classesToRemove);
+            CtClass classToChange = findClassInList(entry, changedClasses);
+
+            if (classToRemove != null) {            // Class was removed
+                changedClasses.remove(classToRemove);
+                classesToRemove.remove(classToRemove);
+            } else if (classToChange != null) {     // Class was changed
+                jos.putNextEntry(new JarEntry(entry.getName()));
+                classToChange.writeFile();
+                InputStream is = new FileInputStream(entry.getName());
+                write(jos, is);
+                changedClasses.remove(classToChange);
+            } else {                                // Class wasn't modified
                 jos.putNextEntry(entry);
-                InputStream is = jarFile.getInputStream(entry);
+                InputStream is = originalJar.getInputStream(entry);
                 byte[] buf = new byte[1024];
                 int len;
                 while ((len = is.read(buf)) > 0) {
@@ -59,9 +44,17 @@ class JarWriter {
             jos.closeEntry();
         }
         createNewClasses(jos, changedClasses);
-        addPackages(jos, addedPackages);
         jos.close();
         System.out.println("Jar saved successfully");
+    }
+
+    private CtClass findClassInList(JarEntry entry, List<CtClass> classes) {
+        for (CtClass ctClass: classes) {
+            if (entry.getName().equals(ctClass.getName().replace('.', '/') + ".class")) {
+                return ctClass;
+            }
+        }
+        return null;
     }
 
     private void write(JarOutputStream jos, InputStream is) throws IOException {
@@ -69,12 +62,6 @@ class JarWriter {
         int len;
         while ((len = (is.read(buf))) > 0) {
             jos.write(buf, 0, Math.min(len, buf.length));
-        }
-    }
-
-    private void addPackages(JarOutputStream jos, List<String> addedPackages) throws IOException {
-        for (String addedPackage : addedPackages) {
-            jos.putNextEntry(new JarEntry(addedPackage.replace('.', '/') + "/"));
         }
     }
 
